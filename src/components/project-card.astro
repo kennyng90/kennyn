@@ -1,0 +1,52 @@
+---
+import { urlFor } from "@/utils/sanity-client";
+import type { ProjectsOverview } from "@/sanity/types/projects-overview";
+
+interface Props {
+  project: ProjectsOverview;
+}
+
+const { project } = Astro.props;
+---
+
+<article class='grid'>
+  <a
+    class='group overflow-hidden rounded-lg border border-gray-300 shadow transition focus-visible:outline-black dark:border-2 dark:border-gray-400 dark:focus-visible:outline-white sm:hover:border-gray-400 sm:hover:shadow-lg sm:dark:hover:border-2 sm:dark:hover:border-white'
+    href={`/projects/${project.slug.current}`}
+  >
+    <div class='overflow-hidden'>
+      <picture>
+        <source
+          srcset={urlFor(project.accessibleImage).width(800).format("webp").url()}
+          media='(min-width: 768px)'
+          type='image/webp'
+        />
+        <source
+          srcset={urlFor(project.accessibleImage).width(600).format("webp").url()}
+          type='image/webp'
+        />
+        <img
+          src={urlFor(project.accessibleImage).url()}
+          alt={project.accessibleImage.alt}
+          loading='lazy'
+          class='h-[224px] w-[600px] transform object-cover object-top transition duration-500 md:group-hover:scale-105 md:group-focus-visible:scale-105'
+        />
+      </picture>
+    </div>
+
+    <div class='p-4 sm:p-6'>
+      <!-- TODO -->
+      <!-- <time datetime="2022-10-10" class="block text-xs text-gray-500 dark:text-white">
+        10th Oct 2022
+      </time> -->
+
+      <h3 class='mt-0.5 text-lg'>
+        {project.title}
+      </h3>
+
+      <p class='mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-white'>
+        {project.preamble}
+      </p>
+    </div>
+  </a>
+</article>

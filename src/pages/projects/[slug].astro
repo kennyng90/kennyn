@@ -1,0 +1,74 @@
+---
+import { sanityClient, urlFor } from "@/utils/sanity-client";
+import { PortableText } from "astro-portabletext";
+import { projectsOverviewGroq } from "@/sanity/groq/projects-overview";
+import { projectGroq } from "@/sanity/groq/project";
+import Breadcrumb from "@/components/breadcrumb.svelte";
+import Layout from "src/layouts/Layout.astro";
+import ImageGallery from "@/components/image-gallery.svelte";
+
+import type { InferGetStaticParamsType } from "astro";
+import type { ProjectsOverview } from "@/sanity/types/projects-overview";
+import type { Project } from "@/sanity/types/project";
+import type { AccessibleImage } from "@/sanity/types/accessible-image";
+import ImageModal from "@/components/image-modal.svelte";
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+
+export async function getStaticPaths() {
+  const projects: Array<ProjectsOverview> = await sanityClient.fetch(projectsOverviewGroq);
+  return projects.map((project) => ({
+    params: { slug: project.slug.current },
+  }));
+}
+
+interface Props {
+  accessibleImage: AccessibleImage;
+}
+
+let showModal: boolean = false;
+
+let selectedImage: AccessibleImage = {
+  alt: "",
+  asset: { _ref: "", _type: "" },
+  caption: "",
+  crop: { _type: "", bottom: 0, left: 0, right: 0, top: 0 },
+};
+
+const { slug } = Astro.params as Params;
+
+const project: Project = await sanityClient.fetch(projectGroq, { slug });
+let pathname = Astro.url.pathname;
+---
+
+<Layout title={`Project • ${project.title}`} description={project.metaDescription}>
+  <Breadcrumb
+    className='mx-auto mt-[72px] mb-12 w-full max-w-[840px]'
+    path={pathname}
+    client:load
+  />
+  <article class='my-6 mx-auto grid w-full max-w-[840px] gap-12 sm:my-12'>
+    <section class='grid gap-4'>
+      <h1 class='text-3xl font-bold sm:text-4xl'>{project.title}</h1>
+      <p class='max-w-[768px] text-base'>{project.preamble}</p>
+      <img
+        class='h-[250px] w-full rounded-xl border object-cover object-top dark:border-transparent sm:h-[500px]'
+        src={urlFor(project.accessibleImage).url()}
+        alt={project.accessibleImage.alt}
+      />
+    </section>
+    <section class='grid w-full gap-4 [&_a]:underline [&_h2]:mt-7 [&_h3]:mt-7 [&_li]:mb-2'>
+      <PortableText value={project.blocks.body} />
+    </section>
+    <section
+      class='mx-auto grid w-full max-w-[740px] gap-7 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:sm:text-4xl [&_p]:mb-7'
+    >
+      <ImageGallery
+        imageGallery={project.imageGallery as unknown as []}
+        {showModal}
+        {selectedImage}
+        client:load
+      />
+    </section>
+  </article>
+  {showModal && <ImageModal {showModal} {selectedImage} client:load />}
+</Layout>

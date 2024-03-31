@@ -1,0 +1,38 @@
+---
+import { aboutGroq } from "@/sanity/groq/about";
+import Layout from "../layouts/Layout.astro";
+import { sanityClient } from "@/utils/sanity-client";
+import type { About } from "@/sanity/types/about";
+import { PortableText as PortableTextInternal } from "astro-portabletext";
+
+const data: About = await sanityClient.fetch(aboutGroq);
+---
+
+<Layout
+  title='About'
+  description="About page that describes the author's background, interests and contact information"
+  ><div class='grid max-w-2xl gap-4 py-24'>
+    <div class='flex gap-4'>
+      <h1
+        class='animate-fade-right animate-delay-300 text-3xl font-bold motion-reduce:animate-none sm:text-6xl'
+      >
+        {data.title}
+      </h1>
+      <div class='show-hand'>
+        <span
+          aria-hidden='true'
+          class='animate-wiggle-more animate-delay-[2000ms] animate-twice block text-3xl motion-reduce:animate-none sm:text-6xl'
+          >👋</span
+        >
+      </div>
+    </div>
+    <p class='animate-fade-right animate-delay-500 mb-7 text-base motion-reduce:animate-none'>
+      {data.description}
+    </p>
+    <div
+      class='animate-fade-right animate-delay-700 grid gap-4 motion-reduce:animate-none [&_a]:underline [&_p]:mb-7'
+    >
+      <PortableTextInternal value={data.blocks?.body} />
+    </div>
+  </div></Layout
+>

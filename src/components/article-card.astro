@@ -1,0 +1,27 @@
+---
+import type { ArticlesOverview } from "@/sanity/types/articles-overview";
+
+interface Props {
+  article: ArticlesOverview;
+}
+
+const { article } = Astro.props;
+---
+
+<article class='grid'>
+  <a
+    class='group rounded-lg border border-gray-300 p-4 shadow transition hover:shadow-lg focus-visible:outline-black dark:border-2 dark:focus-visible:outline-white sm:p-6 sm:hover:border-gray-400 sm:dark:hover:border-2 sm:dark:hover:border-white'
+    href={`/articles/${article.slug.current}`}
+  >
+    <!-- TODO -->
+    <!-- <time datetime="2022-10-10" class="block text-xs text-gray-500 dark:text-white">
+        10th Oct 2022
+      </time> -->
+    <h3 class='mt-0.5 text-lg'>
+      {article.title}
+    </h3>
+    <p class='mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-white'>
+      {article.preamble}
+    </p>
+  </a>
+</article>

@@ -1,0 +1,84 @@
+---
+import { urlFor } from "@/utils/sanity-client";
+import type { ImageGallery } from "@/sanity/types/image-gallery";
+
+interface Props {
+  imageGallery: ImageGallery[];
+}
+
+const { imageGallery } = Astro.props;
+---
+
+<h2 class='mt-7 text-xl font-bold lg:text-2xl'>Additional Images</h2>
+<ul class='grid gap-x-10 gap-y-1 md:grid-cols-2 lg:grid-cols-3'>
+  {
+    imageGallery.map((image) => (
+      <li>
+        <button class='image-button' data-image-src={urlFor(image).url()}>
+          <div class='h-[250px] w-full overflow-hidden rounded-lg border-2 shadow transition focus-visible:outline-black dark:border-2 dark:border-gray-400 dark:focus-visible:outline-white md:hover:border-gray-300 md:hover:shadow-lg md:dark:hover:border-2 md:dark:hover:border-white lg:w-[250px]'>
+            <picture>
+              <source srcset={urlFor(image).format("webp").url()} type='image/webp' />
+              <img
+                class='h-[250px] w-[400px] cursor-pointer object-cover object-left-top transition duration-500 sm:group-hover:scale-105 lg:h-full lg:w-full'
+                src={urlFor(image).url()}
+                alt={image.alt}
+                loading='lazy'
+              />
+            </picture>
+          </div>
+        </button>
+      </li>
+    ))
+  }
+</ul>
+
+<div id='imageModal' class='fixed inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-80'>
+  <div class='flex items-center justify-center min-h-screen'>
+    <div class='relativerounded-lg shadow'>
+      <img id='modalImage' class='block mx-auto w-auto max-w-3xl p-4 max-h-screen' />
+    </div>
+    <button
+      id='modalClose'
+      class='absolute top-0 right-0 text-2xl mt-6 mr-11 text-gray-400 bg-transparent hover:text-gray-500 dark:hover:text-gray-200'
+    >
+      <span class='sr-only'>Close</span>
+      &times;
+    </button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const modal: HTMLElement | null = document.getElementById("imageModal");
+    const modalImg: HTMLImageElement | null = document.getElementById(
+      "modalImage"
+    ) as HTMLImageElement;
+    const modalClose: HTMLElement | null = document.getElementById("modalClose");
+    const body: HTMLElement = document.body;
+
+    function openModal(imageSrc: string): void {
+      if (modal && modalImg) {
+        modal.style.display = "block";
+        modalImg.src = imageSrc;
+        body.classList.add("overflow-hidden"); // Disable scrolling
+      }
+    }
+
+    function closeModal(): void {
+      if (modal) {
+        modal.style.display = "none";
+        body.classList.remove("overflow-hidden"); // Enable scrolling
+      }
+    }
+
+    document.querySelectorAll<HTMLElement>(".image-button").forEach((button) => {
+      button.addEventListener("click", function () {
+        const imageSrc: string = this.getAttribute("data-image-src") || "";
+        openModal(imageSrc);
+      });
+    });
+
+    modalClose?.addEventListener("click", closeModal);
+    modal?.addEventListener("click", closeModal);
+  });
+</script>

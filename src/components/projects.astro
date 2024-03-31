@@ -1,0 +1,23 @@
+---
+import ProjectCard from "@/components/project-card.astro";
+import type { ProjectsOverview } from "@/sanity/types/projects-overview";
+
+interface Props {
+  projectsData: Array<ProjectsOverview>;
+}
+
+const { projectsData } = Astro.props;
+---
+
+<section class='animate-fade-right animate-delay-700 grid gap-7'>
+  <h2 class='text-xl font-bold lg:text-2xl'>Projects</h2>
+  <ul class='grid gap-5 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3'>
+    {
+      projectsData.map((project) => (
+        <li class='flex list-none flex-wrap'>
+          <ProjectCard {project} />
+        </li>
+      ))
+    }
+  </ul>
+</section>

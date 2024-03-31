@@ -1,0 +1,43 @@
+---
+import { sanityClient } from "@/utils/sanity-client";
+import { PortableText } from "astro-portabletext";
+import { articleGroq } from "@/sanity/groq/article";
+import { articlesOverviewGroq } from "@/sanity/groq/articles-overview";
+import Layout from "src/layouts/Layout.astro";
+import Breadcrumb from "@/components/breadcrumb.svelte";
+
+import type { Article } from "@/sanity/types/article";
+import type { InferGetStaticParamsType } from "astro";
+import type { ArticlesOverview } from "@/sanity/types/articles-overview";
+
+export async function getStaticPaths() {
+  const articles: Array<ArticlesOverview> = await sanityClient.fetch(articlesOverviewGroq);
+  return articles.map((article) => ({
+    params: { slug: article.slug.current },
+  }));
+}
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+const { slug } = Astro.params as Params;
+
+const article: Article = await sanityClient.fetch(articleGroq, { slug });
+let pathname = Astro.url.pathname;
+---
+
+<Layout title={`Article • ${article.title}`} description={article.metaDescription}>
+  <Breadcrumb
+    className='mx-auto mt-[72px] mb-12 w-full max-w-[840px]'
+    path={pathname}
+    client:load
+  />
+
+  <article class='my-6 mx-auto grid w-full max-w-[840px] gap-12 sm:my-12'>
+    <section class='grid gap-4'>
+      <h1 class='text-3xl font-bold sm:text-4xl'>{article.title}</h1>
+      <p class='max-w-[768px] text-base'>{article.preamble}</p>
+    </section>
+    <section class='grid w-full gap-4 [&_a]:underline [&_h2]:mt-7 [&_h3]:mt-7 [&_li]:mb-2'>
+      <PortableText value={article.blocks.body} />
+    </section>
+  </article>
+</Layout>

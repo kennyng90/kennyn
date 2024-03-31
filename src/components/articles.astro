@@ -1,0 +1,23 @@
+---
+import ArticleCard from "@/components/article-card.astro";
+import type { ArticlesOverview } from "@/sanity/types/articles-overview";
+
+interface Props {
+  articlesData: Array<ArticlesOverview>;
+}
+
+const { articlesData } = Astro.props;
+---
+
+<section class='animate-fade-right animate-delay-500 grid gap-7'>
+  <h2 class='text-xl font-bold lg:text-2xl'>Articles</h2>
+  <ul class='grid gap-5 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3'>
+    {
+      articlesData.map((article) => (
+        <li class='flex list-none flex-wrap'>
+          <ArticleCard {article} />
+        </li>
+      ))
+    }
+  </ul>
+</section>

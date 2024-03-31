@@ -1,0 +1,13 @@
+---
+interface Props {
+  pageTitle: string;
+  metaDescription: string;
+}
+
+const { pageTitle, metaDescription } = Astro.props;
+---
+
+<head>
+  <meta name='description' content={metaDescription} />
+  <title>{pageTitle}</title>
+</head>

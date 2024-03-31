@@ -1,0 +1,28 @@
+---
+import Articles from "@/components/articles.astro";
+import Layout from "../layouts/Layout.astro";
+import Hero from "@/components/hero.astro";
+
+import { sanityClient } from "@/utils/sanity-client";
+import type { ArticlesOverview } from "@/sanity/types/articles-overview";
+import { articlesOverviewGroq } from "@/sanity/groq/articles-overview";
+
+import Projects from "@/components/projects.astro";
+import { projectsOverviewGroq } from "@/sanity/groq/projects-overview";
+import type { ProjectsOverview } from "@/sanity/types/projects-overview";
+
+const articlesData: Array<ArticlesOverview> = await sanityClient.fetch(articlesOverviewGroq);
+const projectsData: Array<ProjectsOverview> = await sanityClient.fetch(projectsOverviewGroq);
+---
+
+<Layout
+  title='Kenny N • Frontpage'
+  description="Kenny's portfolio website that showcases his work experiences and front-end content."
+>
+  <Hero />
+
+  <div class='grid gap-16'>
+    <Articles {articlesData} />
+    <Projects {projectsData} />
+  </div>
+</Layout>

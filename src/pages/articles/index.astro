@@ -1,0 +1,20 @@
+---
+import Articles from "@/components/articles.astro";
+
+import { sanityClient } from "@/utils/sanity-client";
+import type { ArticlesOverview } from "@/sanity/types/articles-overview";
+import { articlesOverviewGroq } from "@/sanity/groq/articles-overview";
+
+import Layout from "src/layouts/Layout.astro";
+
+const articlesData: Array<ArticlesOverview> = await sanityClient.fetch(articlesOverviewGroq);
+---
+
+<Layout
+  title='Kenny N • Articles'
+  description="Kenny's article collection where he occasionally write about work experiences and front-end content."
+>
+  <div class='py-24 md:py-28'>
+    <Articles {articlesData} />
+  </div>
+</Layout>

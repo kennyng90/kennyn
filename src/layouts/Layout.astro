@@ -1,0 +1,51 @@
+---
+import { headerGroq } from "@/sanity/groq/header";
+import { sanityClient } from "@/utils/sanity-client";
+import ViewTransitions from "astro/components/ViewTransitions.astro";
+import Menu from "@/components/menu.svelte";
+import "../styles/global.css";
+
+import type { MainMenu } from "@/sanity/types/header";
+
+const headerData: MainMenu = await sanityClient.fetch(headerGroq);
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <meta name='generator' content={Astro.generator} />
+    <meta charset='utf-8' />
+    <meta name='description' content={description} />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <title>{title}</title>
+
+    <script is:inline>
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+
+    <ViewTransitions />
+  </head>
+  <body>
+    <div class='mx-auto w-full max-w-7xl p-5 md:p-10'>
+      <main>
+        <Menu {headerData} client:load />
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

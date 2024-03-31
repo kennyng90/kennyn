@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Lato";
+    font-weight: normal;
+    font-display: swap;
+    src: url("/fonts/LatoRegular.eot");
+    src: url("/fonts/LatoRegular.eot") format("embedded-opentype"),
+      url("/fonts/LatoRegular.woff2") format("woff2"), url("/fonts/LatoRegular.woff") format("woff"),
+      url("/fonts/LatoRegular.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "Lato";
+    font-weight: bold;
+    font-display: swap;
+    src: url("/fonts/LatoBold.eot");
+    src: url("/fonts/LatoBold.eot") format("embedded-opentype"),
+      url("/fonts/LatoBold.woff2") format("woff2"), url("/fonts/LatoBold.woff") format("woff"),
+      url("/fonts/LatoBold.ttf") format("truetype");
+  }
+
+  code {
+    @apply mb-7 rounded bg-gray-800 py-5 px-4 text-base text-white;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-bold;
+  }
+
+  h2 {
+    @apply text-xl sm:text-2xl;
+  }
+
+  h3 {
+    @apply text-lg sm:text-xl;
+  }
+
+  ul,
+  p {
+    @apply text-base;
+  }
+}
+
+body {
+  @apply bg-white font-lato text-[#212121] dark:bg-[#212121] dark:text-white;
+}
+
+.link-underline {
+  border-bottom-width: 0;
+  background-image: linear-gradient(transparent, transparent),
+    linear-gradient(currentColor, currentColor);
+  background-size: 0 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease-in-out;
+}
+
+.link-underline:hover {
+  background-size: 100% 1.5px;
+  background-position: 0 100%;
+}
+
+@keyframes typing {
+  0% {
+    content: "";
+  }
+  2% {
+    content: "";
+  }
+  3% {
+    content: "F";
+  }
+  4% {
+    content: "Fr";
+  }
+  5% {
+    content: "Fro";
+  }
+  6% {
+    content: "Fron";
+  }
+  7% {
+    content: "Front";
+  }
+  8% {
+    content: "Fronte";
+  }
+  9% {
+    content: "Fronten";
+  }
+  10% {
+    content: "Frontend";
+  }
+  14% {
+    content: "Frontend";
+  }
+  15% {
+    content: "Fronten";
+  }
+  16% {
+    content: "Fronte";
+  }
+  17% {
+    content: "Front";
+  }
+  18% {
+    content: "Front-";
+  }
+  19% {
+    content: "Front-e";
+  }
+  20% {
+    content: "Front-en";
+  }
+  21% {
+    content: "Front-end";
+  }
+  22% {
+    content: "Front-end";
+  }
+  23% {
+    content: "Front-end ";
+  }
+  24% {
+    content: "Front-end D";
+  }
+  25% {
+    content: "Front-end De";
+  }
+  26% {
+    content: "Front-end Dev";
+  }
+  27% {
+    content: "Front-end Deve";
+  }
+  28% {
+    content: "Front-end Devel";
+  }
+  29% {
+    content: "Front-end Develo";
+  }
+  30% {
+    content: "Front-end Develop";
+  }
+  31% {
+    content: "Front-end Develope";
+  }
+  32% {
+    content: "Front-end Developer";
+  }
+  100% {
+    content: "Front-end Developer";
+  }
+}
+
+.typewriter::before {
+  content: "";
+  animation: typing 13.5s ease-in-out 800ms forwards;
+}
+
+.show-hand {
+  animation: handOpacity ease-in 1500ms forwards;
+}
+
+@keyframes handOpacity {
+  0% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .typewriter::before {
+    content: "Front-End Developer";
+    animation: none;
+  }
+  .show-hand::before {
+    animation: none;
+  }
+}
