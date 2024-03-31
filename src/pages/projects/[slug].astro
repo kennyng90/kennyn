@@ -5,13 +5,13 @@ import { projectsOverviewGroq } from "@/sanity/groq/projects-overview";
 import { projectGroq } from "@/sanity/groq/project";
 import Breadcrumb from "@/components/breadcrumb.svelte";
 import Layout from "src/layouts/Layout.astro";
-import ImageGallery from "@/components/image-gallery.svelte";
+import ProjectImages from "@/components/project-images";
 
 import type { InferGetStaticParamsType } from "astro";
 import type { ProjectsOverview } from "@/sanity/types/projects-overview";
 import type { Project } from "@/sanity/types/project";
-import type { AccessibleImage } from "@/sanity/types/accessible-image";
-import ImageModal from "@/components/image-modal.svelte";
+import type { ImageGallery } from "@/sanity/types/image-gallery";
+
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 
 export async function getStaticPaths() {
@@ -21,23 +21,12 @@ export async function getStaticPaths() {
   }));
 }
 
-interface Props {
-  accessibleImage: AccessibleImage;
-}
-
-let showModal: boolean = false;
-
-let selectedImage: AccessibleImage = {
-  alt: "",
-  asset: { _ref: "", _type: "" },
-  caption: "",
-  crop: { _type: "", bottom: 0, left: 0, right: 0, top: 0 },
-};
-
 const { slug } = Astro.params as Params;
 
 const project: Project = await sanityClient.fetch(projectGroq, { slug });
 let pathname = Astro.url.pathname;
+
+const imageGallery = Object.values(project.imageGallery);
 ---
 
 <Layout title={`Project • ${project.title}`} description={project.metaDescription}>
@@ -62,13 +51,11 @@ let pathname = Astro.url.pathname;
     <section
       class='mx-auto grid w-full max-w-[740px] gap-7 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:sm:text-4xl [&_p]:mb-7'
     >
-      <ImageGallery
-        imageGallery={project.imageGallery as unknown as []}
-        {showModal}
-        {selectedImage}
-        client:load
-      />
+      <h2 class='mt-7 text-xl font-bold lg:text-2xl'>Additional Images</h2>
+      <ul class='grid gap-x-10 gap-y-1 md:grid-cols-2 lg:grid-cols-3'>
+        {imageGallery.map((image) => <ProjectImages data={image as ImageGallery} client:idle />)}
+      </ul>
     </section>
   </article>
-  {showModal && <ImageModal {showModal} {selectedImage} client:load />}
 </Layout>
+@/components/project-images
