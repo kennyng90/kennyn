@@ -21,30 +21,34 @@
       url("/fonts/LatoBold.woff2") format("woff2"), url("/fonts/LatoBold.woff") format("woff"),
       url("/fonts/LatoBold.ttf") format("truetype");
   }
-}
 
-code {
-  @apply mb-7 rounded bg-gray-800 py-5 px-4 text-base text-white;
-}
+  html {
+    font-family: "Lato", system-ui, sans-serif;
+  }
 
-h1,
-h2,
-h3,
-h4 {
-  @apply font-bold;
-}
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-bold;
+  }
 
-h2 {
-  @apply text-xl sm:text-2xl;
-}
+  h2 {
+    @apply text-xl sm:text-2xl;
+  }
 
-h3 {
-  @apply text-lg sm:text-xl;
-}
+  h3 {
+    @apply text-lg sm:text-xl;
+  }
 
-ul,
-p {
-  @apply text-base;
+  ul,
+  p {
+    @apply text-base;
+  }
+
+  code {
+    @apply mb-7 rounded bg-gray-800 py-5 px-4 text-base text-white;
+  }
 }
 
 body {
@@ -188,4 +192,12 @@ body {
   .show-hand::before {
     animation: none;
   }
+}
+
+@font-face {
+  font-family: "";
+  src: url("/fonts/DistantGalaxy.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }

@@ -1,11 +1,11 @@
+import type { Schema } from "@/sanity/types/schema";
 import type { TypedObject } from "@portabletext/types";
-import SchemaType from "@/sanity/schema-type";
 
 /**
  * This is a block container used by the article and project page in this example
  * Sanity Portable text
  */
 export interface BlockContainer {
-  _type: SchemaBLOCK_CONTAINER;
+  _type: Schema.BLOCK_CONTAINER;
   body: Array<TypedObject> | TypedObject;
 }

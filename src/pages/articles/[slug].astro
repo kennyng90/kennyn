@@ -34,7 +34,7 @@ let pathname = Astro.url.pathname;
   <article class='my-6 mx-auto grid w-full max-w-[840px] gap-12 sm:my-12'>
     <section class='grid gap-4'>
       <h1 class='text-3xl font-bold sm:text-4xl'>{article.title}</h1>
-      <p class='max-w-[768px] text-base'>{article.preamble}</p>
+      <p class='max-w-[768px]'>{article.preamble}</p>
     </section>
     <section class='grid w-full gap-4 [&_a]:underline [&_h2]:mt-7 [&_h3]:mt-7 [&_li]:mb-2'>
       <PortableText value={article.blocks.body} />

@@ -1,17 +1,17 @@
-import type { SanityDocument } from '@sanity/types';
-import type SchemaTypes from '@/sanity/schema-type';
-import type { BlockContainer } from '@/sanity/types/block-container';
-import { ImageGallery } from '@/sanity/types/image-gallery';
+import type { SanityDocument } from "@sanity/types";
+import type { BlockContainer } from "@/sanity/types/block-container";
+import { type ImageGallery } from "@/sanity/types/image-gallery";
+import type { Schema } from "@/sanity/types/schema";
 
 export interface Project extends SanityDocument {
-  _type: SchemaTypes.PAGE_PROJECT;
+  _type: Schema.PAGE_PROJECT;
   _key: string;
   title: string;
   preamble: string;
   metaDescription: string;
   slug: { current: string };
   accessibleImage: {
-    _type?: SchemaTypes.ACCESSIBLE_IMAGE;
+    _type?: Schema.ACCESSIBLE_IMAGE;
     alt?: string;
     caption?: string;
     asset: {
