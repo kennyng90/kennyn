@@ -5,7 +5,6 @@
 
   export let imageGallery: Array<ImageGallery> = [];
   export let showModal: boolean;
-  export let selectedImage: AccessibleImage;
 </script>
 
 <h2 class="mt-7 text-xl font-bold lg:text-2xl">Additional Images</h2>
@@ -15,7 +14,6 @@
       <button
         on:click={() => {
           showModal = true;
-          selectedImage = image;
         }}
         class="group"
       >

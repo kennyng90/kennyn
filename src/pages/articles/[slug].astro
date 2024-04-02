@@ -1,8 +1,8 @@
 ---
 import { sanityClient } from "@/utils/sanity-client";
-import { PortableText } from "astro-portabletext";
 import { articleGroq } from "@/sanity/groq/article";
 import { articlesOverviewGroq } from "@/sanity/groq/articles-overview";
+import PortableTextInternal from "@/components/portable-text.astro";
 import Layout from "src/layouts/Layout.astro";
 import Breadcrumb from "@/components/breadcrumb.svelte";
 
@@ -21,6 +21,9 @@ type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 const { slug } = Astro.params as Params;
 
 const article: Article = await sanityClient.fetch(articleGroq, { slug });
+
+console.log(article.blocks.body);
+
 let pathname = Astro.url.pathname;
 ---
 
@@ -37,7 +40,7 @@ let pathname = Astro.url.pathname;
       <p class='max-w-[768px]'>{article.preamble}</p>
     </section>
     <section class='grid w-full gap-4 [&_a]:underline [&_h2]:mt-7 [&_h3]:mt-7 [&_li]:mb-2'>
-      <PortableText value={article.blocks.body} />
+      <PortableTextInternal portableText={article.blocks.body} />
     </section>
   </article>
 </Layout>

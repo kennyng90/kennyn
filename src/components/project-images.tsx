@@ -24,7 +24,7 @@ export default function ImageGallery({ data }: Props) {
             </picture>
           </div>
         </DialogTrigger>
-        <DialogContent className='w-[1000px]'>
+        <DialogContent className='max-w-5xl'>
           <DialogHeader>{data.alt}</DialogHeader>
           <picture>
             <source srcSet={urlFor(data).format("webp").url()} type='image/webp' />

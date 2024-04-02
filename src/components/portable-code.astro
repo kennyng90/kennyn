@@ -1,0 +1,16 @@
+---
+import CodeBlock from "@/components/code-block.svelte";
+
+interface Props {
+  node: {
+    _key: string;
+    code: string;
+  };
+}
+
+const { code } = Astro.props.node;
+---
+
+<div class='relative overflow-x-scroll sm:overflow-hidden'>
+  <CodeBlock code={code} client:idle />
+</div>

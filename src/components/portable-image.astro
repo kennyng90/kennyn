@@ -1,0 +1,25 @@
+---
+import { urlFor } from "@/utils/sanity-client";
+interface Props {
+  node: {
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+    alt: string;
+    caption: string;
+  };
+}
+
+const { asset, alt, caption } = Astro.props.node;
+---
+
+<figure>
+  <img
+    class='w-full rounded-xl border object-cover dark:border-transparent md:h-full'
+    src={urlFor(asset).url()}
+    {alt}
+    loading={"lazy"}
+  />
+  {caption && <figcaption class='mt-5 text-center text-sm italic'>{caption}</figcaption>}
+</figure>
