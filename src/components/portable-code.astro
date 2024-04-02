@@ -1,8 +1,10 @@
 ---
 import CodeBlock from "@/components/code-block.svelte";
+import type { Schema } from "@/sanity/types/schema";
 
 interface Props {
   node: {
+    _type?: Schema.ACCESSIBLE_IMAGE;
     _key: string;
     code: string;
   };
