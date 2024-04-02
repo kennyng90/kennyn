@@ -22,8 +22,6 @@ const { slug } = Astro.params as Params;
 
 const article: Article = await sanityClient.fetch(articleGroq, { slug });
 
-console.log(article.blocks.body);
-
 let pathname = Astro.url.pathname;
 ---
 
