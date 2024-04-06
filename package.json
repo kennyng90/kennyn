@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "astroBuild": "astro check && astro build",
+    "astro-build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -24,6 +24,7 @@
     "astro-portabletext": "^0.9.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "groq": "^3.36.4",
     "lucide-react": "^0.363.0",
     "prettier-plugin-tailwindcss": "^0.5.13",
     "react": "^18.2.0",
