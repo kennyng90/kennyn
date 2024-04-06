@@ -193,11 +193,3 @@ body {
     animation: none;
   }
 }
-
-@font-face {
-  font-family: "";
-  src: url("/fonts/DistantGalaxy.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}

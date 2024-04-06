@@ -3,11 +3,11 @@ const projectId =
 const dataset =
   import.meta.env.PUBLIC_SANITY_STUDIO_DATASET! || import.meta.env.PUBLIC_SANITY_DATASET!;
 
-import { SanityClient, createClient } from "@sanity/client";
+import { createClient } from "@sanity/client";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import imageUrlBuilder from "@sanity/image-url";
 
-export const sanityClient: SanityClient = createClient({
+export const sanityClient = createClient({
   projectId,
   dataset,
   apiVersion: "2023-03-19",
