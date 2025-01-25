@@ -1,9 +1,26 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import "@/styles/globals.css";
+
+import { sanityClient } from "sanity:client";
+
+const posts = await sanityClient.fetch(
+  `*[_type == "post" && defined(slug)] | order(publishedAt desc)`
+);
 ---
 
-<Layout>
-  <main>
-    <h1>Hello world</h1>
-  </main>
+<Layout title='' description=''>
+  <h1 class='text-2xl mb-5'>Latest</h1>
+
+  <ul>
+    {
+      posts.map((post: { slug: { current: string }; title: string }) => (
+        <li>
+          <a href={"/posts/" + post.slug.current} class='post-link'>
+            {post.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </Layout>
