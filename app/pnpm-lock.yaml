@@ -35,6 +35,9 @@ dependencies:
   clsx:
     specifier: ^2.1.1
     version: 2.1.1
+  groq:
+    specifier: ^3.71.2
+    version: 3.71.2
   lucide-react:
     specifier: ^0.474.0
     version: 0.474.0(react@19.0.0)
@@ -2397,6 +2400,11 @@ packages:
 
   /graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
+    dev: false
+
+  /groq@3.71.2:
+    resolution: {integrity: sha512-bQWS8jVYOyYvaYze35T7Jy25iY36Hx5L460F/bly4OVSyuZWu+AWuQPicRe7so9PX1tip0Kby2nX2tPELz3anw==}
+    engines: {node: '>=18'}
     dev: false
 
   /h3@1.14.0:
