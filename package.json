@@ -1,15 +1,15 @@
 {
-    "name": "kennyn.dev",
-    "description": "Personal website",
-    "scripts": {
-      "dev": "concurrently \"npm run dev --workspace=app\" \"npm run dev --workspace=studio\"",
-      "build": "concurrently \"npm run build --workspace=app\" \"npm run build --workspace=studio\""
-    },
-    "workspaces": [
-      "studio",
-      "app"
-    ],
-    "devDependencies": {
-      "concurrently": "^9.1.0"
-    }
+  "name": "kennyn.dev",
+  "description": "Personal website",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=app\" \"npm run dev --workspace=studio\"",
+    "build": "concurrently \"npm run build --workspace=app\" \"npm run build --workspace=studio\""
+  },
+  "workspaces": [
+    "studio",
+    "app"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.1.0"
   }
+}

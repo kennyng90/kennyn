@@ -16,7 +16,7 @@ const posts = await sanityClient.fetch(
     {
       posts.map((post: { slug: { current: string }; title: string }) => (
         <li>
-          <a href={"/posts/" + post.slug.current} class='post-link'>
+          <a href={"/" + post.slug.current} class='post-link'>
             {post.title}
           </a>
         </li>

@@ -1,0 +1,13 @@
+---
+import Code from "@/components/ui/code";
+
+interface Props {
+  node: {
+    code: string;
+    filename?: string;
+  };
+}
+const { code, filename } = Astro.props.node;
+---
+
+<Code code={code} filename={filename} client:only />

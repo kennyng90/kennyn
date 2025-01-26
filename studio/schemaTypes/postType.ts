@@ -25,12 +25,6 @@ export const postType = defineType({
       of: [defineArrayMember({ type: 'reference', to: { type: 'category' } })],
     }),
     defineField({
-      name: 'tags',
-      type: 'array',
-      validation: (Rule) => Rule.max(5).error('Max five tags allowed'),
-      of: [defineArrayMember({ type: 'reference', to: { type: 'category' } })],
-    }),
-    defineField({
       name: 'publishedAt',
       type: 'datetime',
     }),
