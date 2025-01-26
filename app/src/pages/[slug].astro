@@ -1,0 +1,38 @@
+---
+import PortableText from "@/components/portable-text.astro";
+import Layout from "@/layouts/Layout.astro";
+import { loadQuery } from "@/sanity/lib/loadQuery";
+import { getPostQuery, getPostsQuery } from "@/sanity/queries";
+import type { Post } from "@/sanity/sanity.types";
+import type { SanityDocument } from "@sanity/client";
+
+export async function getStaticPaths() {
+  const { data: posts } = await loadQuery<SanityDocument[]>({
+    query: getPostsQuery,
+  });
+
+  return posts.map(({ slug }) => {
+    return {
+      params: {
+        slug: slug,
+      },
+    };
+  });
+}
+
+const { params } = Astro;
+
+const { data: post } = await loadQuery<Post>({
+  query: getPostQuery,
+  params,
+});
+
+if (!post) return null;
+---
+
+<Layout title={post.title} description={post.title}>
+  <article class='prose lg:prose-xl my-10 mx-auto gap-4 flex flex-col w-full'>
+    <h1 class='dark:text-white'>{post.title}</h1>
+    <PortableText portableText={post.body} />
+  </article>
+</Layout>

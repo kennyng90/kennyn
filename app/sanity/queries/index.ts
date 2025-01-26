@@ -1,5 +1,7 @@
+import type { Post } from '@/sanity/sanity.types';
+import { defineQuery } from 'groq'
 
-const postFields = /* groq */ `
+const postFields = /* groq */`
   _id,
   "title": coalesce(title, "Untitled"),
   "slug": slug.current,
@@ -7,31 +9,19 @@ const postFields = /* groq */ `
   "categories": categories[]->{
         "title": coalesce(title, "Untitled"),
         "slug": slug.current
-  },
-  "tags": tags[]->{
-        "title": coalesce(title, "Untitled"),
-        "slug": slug.current
   }
 `;
 
-// export const qetPostQuery = defineQuery(`
-//   *[_type == "post" && slug.current == $categorySlug] [0] {
-//     body[]{
-//     ...,
-//   },
-//     ${postFields}
-//   }
-// `);
+export const getPostQuery = defineQuery(`
+  *[_type == "post" && defined(slug)][0] {
+    body[]{
+    ...,
+  },
+    ${postFields}
+  }
+`);
 
-
-// export const posts = defineQuery(`
-//   *[_type == "post"]  | order(date asc) {
-//     ${postFields}
-//   } `);
-
-
-// export const allCategoryPostsQuery = defineQuery(`
-//   *[_type == "post" && references(*[_type == "category" && slug.current == $category]._id)]  | order(date asc) {
-//     ${postFields}
-//   }
-//   `);
+export const getPostsQuery = defineQuery(`
+  *[_type == "post" && defined(slug)]  | order(date asc) {
+    ${postFields}
+  } `);

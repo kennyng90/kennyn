@@ -1,0 +1,21 @@
+---
+import { PortableText as PortableTextInternal } from "astro-portabletext";
+import PortableCode from "./portable-code.astro";
+import type { PortableTextBlock } from "sanity";
+
+interface Props {
+  portableText?: PortableTextBlock[];
+}
+
+const { portableText } = Astro.props;
+
+const components = {
+  type: {
+    code: PortableCode,
+  },
+};
+
+if (!portableText) return null;
+---
+
+<PortableTextInternal value={portableText} components={components} />
